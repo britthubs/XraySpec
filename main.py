@@ -1,6 +1,5 @@
 # Import
 import matplotlib.pyplot as plt
-import xraylib
 import csv
 import numpy as np
 class specPlot():
@@ -124,16 +123,9 @@ class specPlot():
 
 
 # data
-"""spectra = [
-    ('/Users/burrito/Stage KIKIRPA/CaseStudies/Klavecimbel-Ruckers/xrfCSV/02136-GeoExploration_xrf_spectrum.csv',
-     '/Users/burrito/Stage KIKIRPA/CaseStudies/Klavecimbel-Ruckers/PyMCA/02136.cfg', "XRF-spectrum", "brown", 0)
-]
-plt.title("2136", fontsize=20)
-plt.xlim(1, 14)
-plt.ylim(5, 10**6)"""
 spectra = [
-    ('/Users/burrito/Stage KIKIRPA/CaseStudies/Klavecimbel-Ruckers/xrfCSV/02137-GeoExploration_xrf_spectrum.csv',
-     '/Users/burrito/Stage KIKIRPA/CaseStudies/Klavecimbel-Ruckers/PyMCA/02137.cfg', "XRF-spectrum", "brown", 0, True)
+    ('pathtocsv',
+     'pathtocfg', "XRF-spectrum", "brown", 0, True)
 ]
 plt.title("2137", fontsize=20)
 plt.xlim(1, 14)
