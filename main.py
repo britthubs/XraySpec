@@ -1,7 +1,7 @@
-# Import
 import matplotlib.pyplot as plt
 import csv
 import numpy as np
+
 class specPlot():
     def __init__(self, pathnameCSV, pathnameCFG, labelgraph, colour, offset=0):
         self.pathnameCSV = pathnameCSV
@@ -43,9 +43,9 @@ class specPlot():
     
         return zerogain, names
     
-    def annotation(self):
+    def annotation(self, ax):
         from PyMca5.PyMcaPhysics.xrf import Elements
-        handles = plt.gca().get_lines()  # Get plotted data handles
+        handles = ax.get_lines()  # Get plotted data handles
         
         used_positions = []  # Store used y-positions to avoid overlap
         
@@ -106,42 +106,36 @@ class specPlot():
 
             used_positions.append(final_yval)  # Store adjusted position
 
-            plt.annotate(
+            ax.annotate(
                 label,
                 xy=(energy, yval*1.2),  # Arrow points to actual peak
                 xytext=(energy, final_yval),  # Adjusted text position
-                arrowprops=dict(facecolor='black', arrowstyle='->', lw=0.8),
-                fontsize=12,
+                arrowprops=dict(facecolor='black', arrowstyle='->', lw=0.5),
+                fontsize=5,
                 ha='center'
             )
 
 
-    def plot(self):
+    def plot(self, title="Plot", titlesize=5, xlabel="Energy [keV]", xsize=5, ylabel="Intensity [Counts]", ysize=5):
+        fig, ax = plt.subplots(figsize=(20, 4))
+        plt.tight_layout
+        plt.xticks(fontsize=5)
+        plt.yticks(fontsize=5)
         counts = [count + self.offset for count in self.counts]
         energy = np.array(self.energy)
-        plt.plot((self.zerogain[0] + energy * self.zerogain[1]), counts, linewidth=1, label=self.labelgraph, color=self.colour)
+        
+        ax.plot((self.zerogain[0] + energy * self.zerogain[1]), counts, linewidth=0.5, label=self.labelgraph, color=self.colour)
+        
+        # Set the title, x-label, y-label with the specified fontsize
+        ax.set_title(title, fontsize=titlesize)
+        ax.set_xlabel(xlabel, fontsize=xsize)
+        ax.set_xlim(1, 14)
+        ax.set_ylabel(ylabel, fontsize=ysize)
+        ax.set_ylim(5, 10**6)
+        ax.set_yscale("log")
 
+        # Explicitly set font size for the legend
+        ax.legend(fontsize=5)
+        self.annotation(ax)
 
-# data
-spectra = [
-    ('pathtocsv',
-     'pathtocfg', "XRF-spectrum", "brown", 0, True)
-]
-plt.title("2137", fontsize=20)
-plt.xlim(1, 14)
-plt.ylim(5, 10**6)
-
-
-# plot spectrum and annotations
-for pathnameCSV, pathnameCFG, labelgraph, colour, offset, anno in spectra:
-    spec = specPlot(pathnameCSV, pathnameCFG, labelgraph, colour, offset)
-    spec.plot()
-    if anno == True:
-        spec.annotation()
-
-plt.xlabel("Energy [keV]", fontsize=18)
-plt.yscale("log")
-plt.ylabel("Intensity [Counts]", fontsize=18)
-plt.legend(fontsize=13) 
-plt.show()
-plt.tight_layout()
+        return fig  # Return the figure instead of calling plt.show()
