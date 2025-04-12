@@ -76,7 +76,15 @@ class specPlot():
             elif transition == 'L1':
                 energy = Elements.getxrayenergy(element, 'L3M5')
                 label = f"{element} Lα"
-
+            elif transition == 'L2':
+                energy = Elements.getxrayenergy(element, 'L2M4')
+                label = f"{element} Lβ"
+            elif transition == 'L3':
+                energy = Elements.getxrayenergy(element, 'L2N4')
+                label = f"{element} Lγ"
+            elif transition == 'M':
+                energy = Elements.getxrayenergy(element, 'M5N7')
+                label = f"{element} Mα"
             if energy is None:
                 continue
             
@@ -123,13 +131,14 @@ class specPlot():
 
 
 # data
+name = '2147'
 spectra = [
-    ('pathtocsv',
-     'pathtocfg', "XRF-spectrum", "brown", 0, True)
+    ('/Users/burrito/Stage KIKIRPA/CaseStudies/Klavecimbel-Ruckers/xrfCSV/0'+name+'-GeoExploration_xrf_spectrum.csv',
+     '/Users/burrito/Stage KIKIRPA/CaseStudies/Klavecimbel-Ruckers/PyMCA/0'+name+'.cfg', "XRF-spectrum", "brown", 0, True)
 ]
-plt.title("2137", fontsize=20)
+plt.title(name, fontsize=20)
 plt.xlim(1, 14)
-plt.ylim(5, 10**6)
+plt.ylim(10, 10**6)
 
 
 # plot spectrum and annotations
@@ -143,5 +152,6 @@ plt.xlabel("Energy [keV]", fontsize=18)
 plt.yscale("log")
 plt.ylabel("Intensity [Counts]", fontsize=18)
 plt.legend(fontsize=13) 
+plt.gcf().set_size_inches(15, 8)
+plt.savefig('/Users/burrito/Stage KIKIRPA/CaseStudies/Klavecimbel-Ruckers/spectra/'+name+'.png', dpi=300)
 plt.show()
-plt.tight_layout()
