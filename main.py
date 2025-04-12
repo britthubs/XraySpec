@@ -6,11 +6,11 @@ class specPlot():
     def __init__(self, pathnameCSV, pathnameCFG, labelgraph, colour, offset=0):
         self.pathnameCSV = pathnameCSV
         self.pathnameCFG = pathnameCFG
-        self.energy, self.counts = self.readcsv()
-        self.zerogain, self.names = self.readcfg()
-        self.labelgraph = labelgraph
-        self.offset = offset
-        self.colour = colour
+        self.energy, self.counts = self.readcsv() # Energy = x-axis, counts = y-axis
+        self.zerogain, self.names = self.readcfg() # Zerogain and names needed for annotations
+        self.labelgraph = labelgraph # Name that is shown in legend
+        self.offset = offset # For later additions, not used now
+        self.colour = colour # Colour of graph
 
     def readcsv(self):  # Read CSV file
         energy = []
@@ -18,13 +18,13 @@ class specPlot():
         with open(self.pathnameCSV, 'r') as fileCSV:
             csv_reader = csv.reader(fileCSV)
             
-            # skip first 29 rows & read the rest
+            # Skip first 29 rows & read the rest
             for _ in range(29):
                 next(csv_reader, None)  # Avoid StopIteration error
             for row in csv_reader:
                 if len(row) >= 2:
-                    energy.append(float(row[0]))
-                    counts.append(float(row[1]))
+                    energy.append(float(row[0])) # X-axis 
+                    counts.append(float(row[1])) # Y-axis
 
         return energy, counts
     
