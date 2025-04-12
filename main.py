@@ -76,7 +76,15 @@ class specPlot():
             elif transition == 'L1':
                 energy = Elements.getxrayenergy(element, 'L3M5')
                 label = f"{element} Lα"
-
+            elif transition == 'L2':
+                energy = Elements.getxrayenergy(element, 'L2M4')
+                label = f"{element} Lβ"
+            elif transition == 'L3':
+                energy = Elements.getxrayenergy(element, 'L2N4')
+                label = f"{element} Lγ"
+            elif transition == 'M':
+                energy = Elements.getxrayenergy(element, 'M5N7')
+                label = f"{element} Mα"
             if energy is None:
                 continue
             
@@ -138,4 +146,4 @@ class specPlot():
         ax.legend(fontsize=5)
         self.annotation(ax)
 
-        return fig  # Return the figure instead of calling plt.show()
+        return fig  # Return the figure
