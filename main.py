@@ -3,10 +3,9 @@ import csv
 import numpy as np
 
 class specPlot():
-    def __init__(self, pathnameCFG, labelgraph, offset=0):
+    def __init__(self, pathnameCFG, offset=0):
         self.pathnameCFG = pathnameCFG
         self.zerogain, self.names = self.readcfg() # zerogain and names needed for annotations
-        self.labelgraph = labelgraph # name that is shown in legend
         self.offset = offset # for later additions, not used now
     
     def readcfg(self):
