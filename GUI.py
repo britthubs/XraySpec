@@ -1,6 +1,11 @@
+# macOS packaging support
+from multiprocessing import freeze_support  # noqa
+freeze_support()  # noqa
+
+# imports
 import numpy as np
 from nicegui import ui, events, native
-import main
+import calc
 import tempfile
 import pandas as pd 
 from io import StringIO
@@ -8,33 +13,33 @@ import os
 
 ### functions ###
     
-def csv_file_loaded(e: events.UploadEventArguments):
+def csv_file_loaded(e: events.UploadEventArguments): # load content from CSV file
     with StringIO(e.content.read().decode("utf-8")) as f:
-        df = pd.read_csv(f, usecols=["channel", "counts"], sep = "\t")
+        df = pd.read_csv(f, usecols=["channel", "counts"], sep = "\t") # read channel and counts colums
     global channels, counts
-    channels = (df['channel'].tolist())
-    counts = (df['counts'].tolist())
+    channels = (df['channel'].tolist()) # store values from channels column in a list
+    counts = (df['counts'].tolist()) # store values from counts column in a list
     
-    anno.visible = True
+    anno.visible = True # show the .cfg upload button only after uploading .csv
     
     
 
-def cfg_file_loaded(e: events.UploadEventArguments):
+def cfg_file_loaded(e: events.UploadEventArguments): # load content from cfg file
     with tempfile.NamedTemporaryFile(mode='w+', suffix='.cfg', delete=False) as tmp:
-        tmp.write(e.content.read().decode("utf-8"))
-        tmp_path = tmp.name  # Store the file path
+        tmp.write(e.content.read().decode("utf-8")) # write a temp file to acquire a filepath
+        tmp_path = tmp.name  # store the file path
     global spec, zerogain, names
-    spec = main.specPlot(tmp_path, offset=offset)
-    zerogain, names = spec.readcfg()  # Update global values if needed
-    os.remove(tmp_path)
-    with fig:
+    spec = calc.specPlot(tmp_path)
+    zerogain, names = spec.readcfg()  
+    os.remove(tmp_path) # remove the temp file
+    with fig: # plot the figure
         ax = fig.gca()
         ax.clear()
-        x = [count + offset for count in counts]
+        x = [count for count in counts]
         y = np.array(channels)
         energy = zerogain[0] + y * zerogain[1]
-        ax.plot(energy , x, linewidth=0.5, color=colour)
-        # settings spectra
+        ax.plot(energy , x, linewidth=0.5, color="brown")
+        # settings 
         ax.set_title(titleInput.value, fontsize=tsizeInput.value)
         ax.set_xlabel(xlabelInput.value, fontsize=sizeInput.value)
         ax.set_ylabel(ylabelInput.value, fontsize=sizeInput.value)
@@ -42,14 +47,14 @@ def cfg_file_loaded(e: events.UploadEventArguments):
         ax.set_ylim(miny.value, maxy.value)
         ax.set_yscale("log")
     
-    annotationUp()
+    annotationUp() # invoke annotations
 
 
 def annotationUp():
     with fig:
         ax = fig.gca()
         spec.annotation(ax)
-    ui.update(fig)
+    ui.update(fig) # update the figure annotations according to the uploaded cfg file
     
 def updates():
     with fig:
@@ -59,12 +64,7 @@ def updates():
         ax.set_ylabel(ylabelInput.value, fontsize=sizeInput.value)
         ax.set_xlim(minx.value, maxx.value)
         ax.set_ylim(miny.value, maxy.value)
-    ui.update(fig)
-        
-# values for plot
-
-colour = "brown"
-offset = 0
+    ui.update(fig) # update the figure properties according to inputs
     
 ### GUI SCREEN ###
 
@@ -93,10 +93,15 @@ with ui.row().classes('w-full justify-center'):
                 
                 
 # spectrum viewer
+
 with ui.column():
     ui.markdown('### Spectrum').classes('mx-auto text-center')
     fig = ui.matplotlib(figsize=(15, 6)).figure
         
-ui.colors(primary='#BC6F27')
-ui.add_head_html('<style>body {background-color: #E2D4BC; }</style>')
-ui.run(native=True, reload=False, port=native.find_open_port())
+# aesthetic elements
+
+ui.colors(primary='#BC6F27') # primary colours
+ui.add_head_html('<style>body {background-color: #E2D4BC; }</style>') # background colour
+
+
+ui.run(title="XraySpec", native=True, reload=False, port=native.find_open_port())

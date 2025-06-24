@@ -2,10 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class specPlot():
-    def __init__(self, pathnameCFG, offset=0):
+    def __init__(self, pathnameCFG):
         self.pathnameCFG = pathnameCFG
         self.zerogain, self.names = self.readcfg() # zerogain and names needed for annotations
-        self.offset = offset # for later additions, not used now
     
     def readcfg(self):
         from PyMca5.PyMca import ConfigDict
@@ -86,7 +85,7 @@ class specPlot():
             final_yval = (yval - 0.01*yval) * base_offset  
             min_spacing_factor = 1.15  
             while any(abs(np.log10(final_yval) - np.log10(used_y)) < 0.1 for used_y in used_positions):
-                final_yval *= min_spacing_factor  # push it up slightly
+                final_yval *= min_spacing_factor  # push up slightly
             used_positions.append(final_yval)  # store adjusted position
             ax.annotate(
                 label,
