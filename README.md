@@ -11,13 +11,7 @@
 
 ### The goal
 
-A python program designed for visualising XRF spectra including the elements chosen from the configuration in PyMCA. This is written specifically for CSV files obtained with the Bruker S1 Titan model 800 handheld XRF instrument. (Other bruker handheld XRF instruments might have similar CSV files, but this was not tested.)
-
-### Usage
-To install the packages and dependencies needed to run this code, in your terminal (in a preferred environment) write:
-
-```pip install -r requirements.txt```
-
+A python program designed for visualising XRF spectra including the elements chosen from the configuration in PyMCA. This is written specifically for CSV files obtained with a handheld XRF instrument. (Only tested on data from the the Bruker S1 Titan model 800, other handheld XRF instruments might not be compatible.)
 
 ## Contributors and inspiration
 
