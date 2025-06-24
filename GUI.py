@@ -1,9 +1,10 @@
 import numpy as np
-from nicegui import ui, events, Tailwind
+from nicegui import ui, events, native
 import main
 import tempfile
 import pandas as pd 
 from io import StringIO
+import os
 
 ### functions ###
     
@@ -25,6 +26,7 @@ def cfg_file_loaded(e: events.UploadEventArguments):
     global spec, zerogain, names
     spec = main.specPlot(tmp_path, offset=offset)
     zerogain, names = spec.readcfg()  # Update global values if needed
+    os.remove(tmp_path)
     with fig:
         ax = fig.gca()
         ax.clear()
@@ -66,7 +68,7 @@ offset = 0
     
 ### GUI SCREEN ###
 
-ui.markdown('### **hXRF spectrum viewer**').classes('mx-auto text-center')
+ui.markdown('### **hXRF Spectrum Viewer**').classes('mx-auto text-center')
 with ui.row().classes('w-full justify-center'):    
     with ui.column(): 
         ui.upload(label="Load .csv file here",on_upload=csv_file_loaded).props("accept=.csv").classes("max-w-full")
@@ -97,4 +99,4 @@ with ui.column():
         
 ui.colors(primary='#BC6F27')
 ui.add_head_html('<style>body {background-color: #E2D4BC; }</style>')
-ui.run()
+ui.run(native=True, reload=False, port=native.find_open_port())
