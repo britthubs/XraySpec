@@ -44,11 +44,6 @@ pydantic==2.11.7
 pydantic_core==2.33.2
 Pygments==2.19.2
 PyMca5==5.9.4
-pyobjc-core==11.1
-pyobjc-framework-Cocoa==11.1
-pyobjc-framework-Quartz==11.1
-pyobjc-framework-Security==11.1
-pyobjc-framework-WebKit==11.1
 pyparsing==3.2.3
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.1
