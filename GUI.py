@@ -1,4 +1,4 @@
-# macOS packaging support
+# Windows packaging support
 from multiprocessing import freeze_support  # noqa
 freeze_support()  # noqa
 
