@@ -104,4 +104,4 @@ ui.colors(primary='#BC6F27') # primary colours
 ui.add_head_html('<style>body {background-color: #E2D4BC; }</style>') # background colour
 
 
-ui.run(title="XraySpec", native=True, reload=False, port=native.find_open_port())
+ui.run(title="XraySpec", reload=False, port=native.find_open_port())
