@@ -10,6 +10,7 @@ import os
 # needed for executable
 import matplotlib.backends.backend_svg
 import matplotlib.backends.backend_tkagg
+import PyMca5.PyMcaData 
 
 ### functions ###
     
