@@ -11,7 +11,6 @@ import os
 import matplotlib.backends.backend_svg
 import matplotlib.backends.backend_tkagg
 import PyMca5.PyMcaData 
-from PyMca5.PyMcaIO.ConfigDict import ConfigDict
 
 ### functions ###
     

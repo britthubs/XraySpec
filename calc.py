@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
+from PyMca5.PyMcaIO.ConfigDict import ConfigDict
+from PyMca5.PyMcaPhysics.xrf import Elements
 
 class specPlot():
     def __init__(self, pathnameCFG):
@@ -8,8 +9,7 @@ class specPlot():
         self.zerogain, self.names = self.readcfg() # zerogain and names needed for annotations
     
     def readcfg(self):
-        from PyMca5.PyMca import ConfigDict
-        config = ConfigDict.ConfigDict()
+        config = ConfigDict()
         config.read(self.pathnameCFG)
         zerogain = [config['detector']['zero'], config['detector']['gain']]  # zero, gain
         names = []
@@ -23,7 +23,6 @@ class specPlot():
         return zerogain, names
     
     def annotation(self, ax):
-        from PyMca5.PyMcaPhysics.xrf import Elements
         handles = ax.get_lines()  # get plotted data handles
         used_positions = []  # store used y-positions to avoid overlap
         

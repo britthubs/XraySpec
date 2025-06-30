@@ -15,7 +15,7 @@ PRE-RELEASE ONLY
 
 Looking to try out **XraySpec**?
 
-[Download XraySpec.exe](https://github.com/britthubs/XraySpec/releases/download/v0.1.4-beta/XraySpec.exe)
+[Download XraySpec.exe](https://github.com/britthubs/XraySpec/releases/download/v0.1.5-beta/XraySpec.exe)
 
 No installation required, just download and run!
 
