@@ -11,7 +11,7 @@
 XraySpec is a Python-based program designed for visualising XRF spectra based on the configuration of the spectrum in PyMCA. This is written specifically for CSV files obtained with a handheld XRF instrument. (Only tested on data from the Bruker S1 Titan model 800, other handheld XRF instruments might not be compatible.)
 
 ## Download the software (Windows only) 
-PRE_RELEASE ONLY
+PRE-RELEASE ONLY
 
 Looking to try out **XraySpec**?
 
