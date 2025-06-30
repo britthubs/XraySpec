@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 class specPlot():
     def __init__(self, pathnameCFG):
         self.pathnameCFG = pathnameCFG
