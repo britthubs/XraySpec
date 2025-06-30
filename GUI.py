@@ -7,6 +7,10 @@ import pandas as pd
 from io import StringIO
 import os
 
+# needed for executable
+import matplotlib.backends.backend_svg
+import matplotlib.backends.backend_tkagg
+
 ### functions ###
     
 def csv_file_loaded(e: events.UploadEventArguments): # load content from CSV file
