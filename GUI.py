@@ -1,7 +1,3 @@
-# macOS packaging support
-from multiprocessing import freeze_support  # noqa
-freeze_support()  # noqa
-
 # imports
 import numpy as np
 from nicegui import ui, events, native
