@@ -2,9 +2,8 @@
 
 ## Table of contents
 - [Description](#description)
-- [Download the software (Windows only)](#download-the-software-(windows-only))
-- [Repository download (macOS and Linux option, Windows instructions also included)](repository-download-(macos-and-linux-option,-windows-instructions-also-included))
-
+- [Download the software (Windows only)](#download-the-software-windows-only)
+- [Repository download (macOS and Linux option, Windows instructions also included)](#repository-download-macos-and-linux-option-windows-instructions-also-included)
 - [Contributors and inspiration](#contributors-and-inspiration)
 
 ## Description
