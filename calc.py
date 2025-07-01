@@ -1,5 +1,36 @@
 import matplotlib.pyplot as plt
 import numpy as np
+
+print("calc.py is running before fisx import")
+print("...... \n"*5)
+
+import fisx
+from fisx import DataDir
+import os
+import sys
+
+print("Fisx imported without crashing")  # very first thing to confirm the file runs
+print("...... \n"*5)
+print("DataDir module contents:", dir(fisx.DataDir))
+print("...... \n"*5)
+
+if getattr(sys, 'frozen', False):  # running in a bundle
+    data_dir = os.path.join(sys._MEIPASS, 'fisx/fisx_data')
+    print(f"Running frozen, setting fisx data dir to: {data_dir}")
+    fisx.DataDir.FISX_DATA_DIR = data_dir
+else:
+    print("Running in normal Python mode, using default fisx data dir")
+    print("...... \n"*5)
+    print("Whopeee!")
+    print("...... \n"*5)
+print(f"fisx.DataDir.FISX_DATA_DIR is now: {fisx.DataDir.FISX_DATA_DIR}")
+
+# Print the data dir after setting it
+try:
+    print(f"fisx data dir after setting: {DataDir.getDataDir()}")
+except AttributeError:
+    print("No getDataDir() method found in DataDir module.")
+
 from PyMca5.PyMcaIO.ConfigDict import ConfigDict
 from PyMca5.PyMcaPhysics.xrf import Elements
 
