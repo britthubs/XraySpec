@@ -1,31 +1,30 @@
 import matplotlib # not explicitely used, but needed for figure
 import numpy as np
-import logging
 
-logging.debug("calc.py is running before fisx import.")
+print("calc.py is running before fisx import.")
 
 import fisx
 from fisx import DataDir
 import os
 import sys
 
-logging.debug("Fisx imported without crashing.")  # very first thing to confirm the file runs
-logging.debug(f"DataDir module contents: {dir(fisx.DataDir)}") # print contents for debugging
+print("Fisx imported without crashing.")  # very first thing to confirm the file runs
+print(f"DataDir module contents: {dir(fisx.DataDir)}") # print contents for debugging
 
 if getattr(sys, 'frozen', False):  # running in a bundle
     data_dir = os.path.join(sys._MEIPASS, 'fisx/fisx_data')
-    logging.debug(f"Running frozen, setting fisx data dir to: {data_dir}")
+    print(f"Running frozen, setting fisx data dir to: {data_dir}")
     fisx.DataDir.FISX_DATA_DIR = data_dir
     
 else:
-    logging.debug("Running in normal Python mode, using default fisx data dir.")
-logging.debug(f"fisx.DataDir.FISX_DATA_DIR is now: {fisx.DataDir.FISX_DATA_DIR}")
+    print("Running in normal Python mode, using default fisx data dir.")
+print(f"fisx.DataDir.FISX_DATA_DIR is now: {fisx.DataDir.FISX_DATA_DIR}")
 
 # print the data dir after setting it
 try:
-    logging.debug(f"fisx data dir after setting: {DataDir.getDataDir()}")
+    print(f"fisx data dir after setting: {DataDir.getDataDir()}")
 except AttributeError:
-    logging.warning("No getDataDir() method found in DataDir module.")
+    print("No getDataDir() method found in DataDir module.")
 
 from PyMca5.PyMcaIO.ConfigDict import ConfigDict
 from PyMca5.PyMcaPhysics.xrf import Elements
@@ -36,7 +35,7 @@ class specPlot():
         self.zerogain, self.names = self.readcfg() # zerogain and names needed for annotations
     
     def readcfg(self):
-        logging.debug("Calculating zero and gain, saving elements.")
+        print("Calculating zero and gain, saving elements.")
         config = ConfigDict()
         config.read(self.pathnameCFG)
         zerogain = [config['detector']['zero'], config['detector']['gain']]  # zero, gain
@@ -51,7 +50,7 @@ class specPlot():
         return zerogain, names
     
     def annotation(self, ax):
-        logging.debug("Configuring annotations.")
+        print("Configuring annotations.")
         handles = ax.get_lines()  # get plotted data handles
         used_positions = []  # store used y-positions to avoid overlap
         

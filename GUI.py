@@ -10,17 +10,7 @@ import matplotlib.backends.backend_svg
 import matplotlib.backends.backend_tkagg
 import PyMca5.PyMcaData 
 
-### log file setup ###
-import logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('XraySpecLogs.log', mode='w')
-    ]
-)
-
-import calc  # Import AFTER logging is configured
+import calc 
 
 ### functions ###
     
@@ -30,7 +20,7 @@ def csv_file_loaded(e: events.UploadEventArguments): # load content from CSV fil
     global channels, counts
     channels = (df['channel'].tolist()) # store values from channels column in a list
     counts = (df['counts'].tolist()) # store values from counts column in a list
-    logging.debug("Saved contents from .csv file.")
+    print("Saved contents from .csv file.")
     anno.visible = True # show the .cfg upload button only after uploading .csv
     
     
@@ -57,7 +47,7 @@ def cfg_file_loaded(e: events.UploadEventArguments): # load content from cfg fil
         ax.set_xlim(minx.value, maxx.value)
         ax.set_ylim(miny.value, maxy.value)
         ax.set_yscale("log")
-    logging.debug("Saved contents from .cfg file.")
+    print("Saved contents from .cfg file.")
     annotationUp() # invoke annotations
 
 
