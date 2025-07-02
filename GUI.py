@@ -1,16 +1,26 @@
 # imports
 import numpy as np
 from nicegui import ui, events, native
-import calc
 import tempfile
 import pandas as pd 
 from io import StringIO
 import os
 
-# needed for executable
 import matplotlib.backends.backend_svg
 import matplotlib.backends.backend_tkagg
 import PyMca5.PyMcaData 
+
+### log file setup ###
+import logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('XraySpecLogs.log', mode='w')
+    ]
+)
+
+import calc  # Import AFTER logging is configured
 
 ### functions ###
     
@@ -20,7 +30,7 @@ def csv_file_loaded(e: events.UploadEventArguments): # load content from CSV fil
     global channels, counts
     channels = (df['channel'].tolist()) # store values from channels column in a list
     counts = (df['counts'].tolist()) # store values from counts column in a list
-    
+    logging.debug("Saved contents from .csv file.")
     anno.visible = True # show the .cfg upload button only after uploading .csv
     
     
@@ -47,15 +57,16 @@ def cfg_file_loaded(e: events.UploadEventArguments): # load content from cfg fil
         ax.set_xlim(minx.value, maxx.value)
         ax.set_ylim(miny.value, maxy.value)
         ax.set_yscale("log")
-    
+    logging.debug("Saved contents from .cfg file.")
     annotationUp() # invoke annotations
 
 
 def annotationUp():
+    ui.notify("Upload successful! Adjust the settings to your liking and click 'Update plot!'.")
     with fig:
         ax = fig.gca()
         spec.annotation(ax)
-    ui.update(fig) # update the figure annotations according to the uploaded cfg file
+        ui.update() # update the figure annotations according to the uploaded cfg file
     
 def updates():
     with fig:
@@ -65,7 +76,7 @@ def updates():
         ax.set_ylabel(ylabelInput.value, fontsize=sizeInput.value)
         ax.set_xlim(minx.value, maxx.value)
         ax.set_ylim(miny.value, maxy.value)
-    ui.update(fig) # update the figure properties according to inputs
+    ui.update() # update the figure properties according to inputs
     
 ### GUI SCREEN ###
 
@@ -94,10 +105,8 @@ with ui.row().classes('w-full justify-center'):
                 
                 
 # spectrum viewer
-
-with ui.column():
-    ui.markdown('### Spectrum').classes('mx-auto text-center')
-    fig = ui.matplotlib(figsize=(15, 6)).figure
+ui.markdown('### Spectrum').classes('mx-auto text-center')
+fig = ui.matplotlib(figsize=(15, 6)).figure
         
 # aesthetic elements
 
