@@ -6,6 +6,7 @@ import pandas as pd
 from io import StringIO
 import os
 
+# imports needed for executable, not directly accessed
 import matplotlib.backends.backend_svg
 import matplotlib.backends.backend_tkagg
 import PyMca5.PyMcaData 
@@ -70,7 +71,7 @@ def updates():
     
 ### GUI SCREEN ###
 
-ui.markdown('### **hXRF Spectrum Viewer**').classes('mx-auto text-center')
+ui.markdown('# **XRF Spectrum viewer**').classes('mx-auto text-center')
 with ui.row().classes('w-full justify-center'):    
     with ui.column(): 
         ui.upload(label="Load .csv file here",on_upload=csv_file_loaded).props("accept=.csv").classes("max-w-full")
@@ -78,8 +79,7 @@ with ui.row().classes('w-full justify-center'):
         anno.visible = False
         
     with ui.card().classes('items-center'):
-        ui.markdown('**Adjust plot**').classes('mx-auto text-center')
-        with ui.grid(columns=5):    
+        with ui.grid(columns=5) as grid:    
             xlabelInput = ui.input('Label x-axis',value="Energy [keV]")
             sizeInput = ui.number('Label font size', value=10, min=1)
             titleInput = ui.input('Title',value="XRF-spectrum")
@@ -87,21 +87,39 @@ with ui.row().classes('w-full justify-center'):
             miny = ui.number('Min. value Y-axis', value=5)
             
             ylabelInput = ui.input('Label y-axis', value="Intensity [Counts]")
-            tsizeInput = ui.number('Title font size', value=10)              
-            ui.button('Update plot!', on_click=updates)   
+            tsizeInput = ui.number('Title font size', value=10)
+            ui.label(' ')               
             maxx = ui.number('Max. value X-axis', value=15)
             maxy = ui.number('Max. value Y-axis', value=10**6)
 
-                
-                
+            def resetlabel():
+                    xlabelInput.value = "Energy [keV]"
+                    ylabelInput.value = "Intensity [Counts]"
+            def resetsize():
+                    sizeInput.value = 10
+                    tsizeInput.value = 10
+            def resetx():
+                    minx.value = 1
+                    maxx.value = 15
+            def resety():
+                    miny.value = 5
+                    maxy.value = 10**6
+            ui.button('Reset labels', on_click=resetlabel).props('outline')
+            ui.button('Reset sizes', on_click=resetsize).props('outline')
+            ui.button('Update plot!', on_click=updates)
+            ui.button('Reset X-values', on_click=resetx).props('outline')
+            ui.button('Reset Y-values', on_click=resety).props('outline')
 # spectrum viewer
-ui.markdown('### Spectrum').classes('mx-auto text-center')
-fig = ui.matplotlib(figsize=(15, 6)).figure
+#.classes('mx-auto text-center')
+with ui.column().classes('w-full items-center'):
+    ui.markdown('### Spectrum')
+    fig = ui.matplotlib(figsize=(15, 6)).figure
         
 # aesthetic elements
 
 ui.colors(primary='#BC6F27') # primary colours
 ui.add_head_html('<style>body {background-color: #E2D4BC; }</style>') # background colour
+
 
 
 ui.run(title="XraySpec", native=True, reload=False, port=native.find_open_port())
