@@ -1,4 +1,4 @@
-# Handheld XRF spectra in python
+# XRF spectrum viewer
 
 ## Table of contents
 - [Description](#description)
@@ -8,15 +8,15 @@
 
 ## Description
 
-XraySpec is a Python-based program designed for visualising XRF spectra based on the configuration of the spectrum in PyMCA. This is written specifically for CSV files obtained with a handheld XRF instrument. (Only tested on data from the Bruker S1 Titan model 800, other handheld XRF instruments might not be compatible.)
+XraySpec is a Python-based program using NICEGUI designed for visualising XRF spectra based on the configuration of the spectrum in PyMCA. This only tested on data from the Bruker S1 Titan model 800, other (handheld) XRF instruments might not be compatible.
 
 ## Download the software (Windows only) 
-Looking to use **XraySpec** on Windows without the need for extra package or Python installation? Simply click the download button below and it is ready to go!
+Looking to use **XraySpec** on Windows without the need for extra packages or Python installation? Simply click the download button below, and it is ready to go!
 
-[![Download XraySpec.exe](https://img.shields.io/badge/Download-XraySpec.exe-blue?style=for-the-badge&logo=download)](https://github.com/britthubs/XraySpec/releases/download/v1.0.0/XraySpec.exe)
+[![Download XraySpec.exe](https://img.shields.io/badge/Download-XraySpec.exe-blue?style=for-the-badge&logo=download)](https://github.com/britthubs/XraySpec/releases/download/v1.1.0/XraySpec.exe)
 
-Try the Pre-release: 
-[Download v0.1.6-beta](https://github.com/britthubs/XraySpec/releases/download/v0.1.6-beta/XraySpec.exe)
+Try the previous version: 
+[Download v1.0.0](https://github.com/britthubs/XraySpec/releases/download/v1.1.0/XraySpec.exe)
 
 ## Repository download (macOS and Linux option, Windows instructions also included)
 For macOS and Linux users, there is no packaged software available. However, the files in this repository can be downloaded directly, and can run on these systems **given python is installed**. With the help of some terminal commands, and if preferred an IDE, the program can run too.
@@ -96,5 +96,6 @@ to deactivate the environment, in terminal write:
 
 Author: @britthubs
 
+Contributor: [@Mai-soup](https://github.com/Mai-soup)
 Inspiration reading cfg files and adding elements as annotation: [Xims](https://github.com/PieterTack/Xims) by [@PieterTack](https://github.com/PieterTack)
 
