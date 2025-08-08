@@ -27,13 +27,14 @@ def csv_file_loaded(e: events.UploadEventArguments): # load content from CSV fil
     
 
 def cfg_file_loaded(e: events.UploadEventArguments): # load content from cfg file
-    with tempfile.NamedTemporaryFile(mode='w+', suffix='.cfg', delete=False) as tmp:
-        tmp.write(e.content.read().decode("utf-8")) # write a temp file to acquire a filepath
-        tmp_path = tmp.name  # store the file path
-    global spec, zerogain, names
-    spec = calc.specPlot(tmp_path)
-    zerogain, names = spec.readcfg()  
-    os.remove(tmp_path) # remove the temp file
+    # create temp file for .cfg as PyMca requires a filepath not just content
+    # workaround as nicegui cannot directly access filepaths of uploads
+    with tempfile.NamedTemporaryFile(mode='w+', suffix='.cfg', delete=True, delete_on_close=False) as tmp:
+        tmp.write(e.content.read().decode("utf-8"))
+        global spec, zerogain, names
+        spec = calc.specPlot(tmp.name)
+        zerogain, names = spec.readcfg()  
+
     with fig: # plot the figure
         ax = fig.gca()
         ax.clear()
