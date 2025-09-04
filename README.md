@@ -4,7 +4,8 @@
 - [Description](#description)
 - [Download the software (Windows only)](#download-the-software-windows-only)
 - [Repository download (macOS and Linux option, Windows instructions also included)](#repository-download-macos-and-linux-option-windows-instructions-also-included)
-- [Contributors and inspiration](#contributors-and-inspiration)
+- [Contributors](#contributors)
+- [Inspiration](#inspiration)
 
 ## Description
 
@@ -13,10 +14,8 @@ XraySpec is a Python-based program using NICEGUI designed for visualising XRF sp
 ## Download the software (Windows only) 
 Looking to use **XraySpec** on Windows without the need for extra packages or Python installation? Simply click the download button below, and it is ready to go!
 
-[![Download XraySpec.exe](https://img.shields.io/badge/Download-XraySpec.exe-blue?style=for-the-badge&logo=download)](https://github.com/britthubs/XraySpec/releases/download/v1.1.0/XraySpec.exe)
+[![Download XraySpec.exe](https://img.shields.io/badge/Download-XraySpec.exe-blue?style=for-the-badge&logo=download)](https://github.com/britthubs/XraySpec/releases/download/v1.1.1/XraySpec.exe)
 
-Try the previous version: 
-[Download v1.0.0](https://github.com/britthubs/XraySpec/releases/download/v1.1.0/XraySpec.exe)
 
 ## Repository download (macOS and Linux option, Windows instructions also included)
 For macOS and Linux users, there is no packaged software available. However, the files in this repository can be downloaded directly, and can run on these systems **given python is installed**. With the help of some terminal commands, and if preferred an IDE, the program can run too.
@@ -25,7 +24,9 @@ The following steps should also be followed in case you want to make a pull requ
 
 To download the repository to your device, either use `Download ZIP` to download a zip-file of the repository, or use other methods like `git clone`, whichever you are more comfortable with.
 
-![download screen](images/downloadZip.png)
+<div style="text-align: center;">
+<img src="images/downloadZip.png" alt="drawing" width="200"/>
+</div>
 
 As the script is based on some specific packages and dependencies, it is recommended to activate a python environment and install the packages. The steps starting from here are different for macOS and Linux users compared to Windows users.
 
@@ -92,10 +93,14 @@ to deactivate the environment, in terminal write:
 
 ```deactivate```
 
-## Contributors and inspiration
+## Contributors
 
-Author: @britthubs
+Main author: [@britthubs](https://github.com/britthubs)
 
 Contributor: [@Mai-soup](https://github.com/Mai-soup)
-Inspiration reading cfg files and adding elements as annotation: [Xims](https://github.com/PieterTack/Xims) by [@PieterTack](https://github.com/PieterTack)
 
+Help with packaging for Windows: [@ThibautBaert](https://github.com/ThibautBaert)
+
+## Inspiration
+
+Inspiration for reading cfg files and adding elements as annotation: [Xims](https://github.com/PieterTack/Xims) by [@PieterTack](https://github.com/PieterTack)
